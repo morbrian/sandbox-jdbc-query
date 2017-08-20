@@ -3,7 +3,6 @@ package morbrian.sandbox.jdbcquery.rest;
 import morbrian.sandbox.jdbcquery.QueryController;
 import org.slf4j.Logger;
 
-import javax.annotation.Resource;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -24,11 +23,8 @@ import java.util.concurrent.Executors;
       Collections.unmodifiableSet(new HashSet(Arrays.asList("public")));
   private static Set<String> SUPPORTED_CATEGORIES =
       Collections.unmodifiableSet(new HashSet(Arrays.asList("tablenames")));
-  @Resource
-  QueryController controller;
-
-  @Inject
-  private Logger log;
+  @Inject QueryController controller;
+  @Inject private Logger log;
 
   @GET @Path("/fetch/{schema}/{category}") @Produces(MediaType.APPLICATION_JSON)
   public String fetchDataCategory(@PathParam("schema") final String schema,

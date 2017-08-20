@@ -7,9 +7,15 @@
 
   <display-name>JDBC Query</display-name>
 
+
   <listener>
     <listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>
   </listener>
+
+  <context-param>
+    <param-name>resteasy.injector.factory</param-name>
+    <param-value>org.jboss.resteasy.cdi.CdiInjectorFactory</param-value>
+  </context-param>
 
 </web-app>
 
