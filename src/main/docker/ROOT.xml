@@ -1,0 +1,14 @@
+<Context deployOnStartup="true" reloadable="false" >
+	<Resource name="DocumentDS"
+		  type="javax.sql.DataSource"
+                  driverClassName="org.postgresql.Driver"
+                  url="jdbc:postgresql://${DB_SERVICE_NAME}:5432/${POSTGRESQL_DATABASE}"
+                  username="${POSTGRESQL_USER}"
+                  password="${POSTGRESQL_PASSWORD}"
+                  maxTotal="250"
+                  maxIdle="20"
+                  maxWaitMillis="30000"
+                  defaultAutoCommit="false"
+        />
+	<ResourceLink name="DocumentDS" global="DocumentDS" type="javax.sql.DataSource" />
+</Context>
