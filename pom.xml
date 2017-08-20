@@ -45,14 +45,22 @@
       <artifactId>weld-servlet</artifactId>
       <version>${version.jboss.weld}</version>
     </dependency>
+    <!-- Basic support -->
     <dependency>
       <groupId>org.jboss.resteasy</groupId>
       <artifactId>resteasy-jaxrs</artifactId>
       <version>${version.resteasy}</version>
     </dependency>
+    <!-- Servlet pluggability support -->
     <dependency>
       <groupId>org.jboss.resteasy</groupId>
-      <artifactId>resteasy-jaxb-provider</artifactId>
+      <artifactId>resteasy-servlet-initializer</artifactId>
+      <version>${version.resteasy}</version>
+    </dependency>
+    <!-- JSON/POJO support -->
+    <dependency>
+      <groupId>org.jboss.resteasy</groupId>
+      <artifactId>resteasy-jackson2-provider</artifactId>
       <version>${version.resteasy}</version>
     </dependency>
     <dependency>
@@ -65,6 +73,7 @@
       <artifactId>resteasy-cdi</artifactId>
       <version>${version.resteasy}</version>
     </dependency>
+
     <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
