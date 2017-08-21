@@ -1,8 +1,8 @@
 #available outside openshift, on open internet
-#FROM registry.access.redhat.com/jboss-webserver-3/webserver31-tomcat8-openshift
+FROM registry.access.redhat.com/jboss-webserver-3/webserver31-tomcat8-openshift
 
-#available in openshift pipeline
-FROM webserver31-tomcat8
+#available in openshift pipeline, above FROM is replaced when using dockerStrategy in BuildConfig
+#FROM webserver31-tomcat8
 
 USER root
 
