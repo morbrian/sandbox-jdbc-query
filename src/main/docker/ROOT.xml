@@ -1,4 +1,4 @@
-<Context deployOnStartup="true" reloadable="false" >
+<Context reloadable="false" >
 	<Resource name="DocumentDS"
 		  type="javax.sql.DataSource"
                   driverClassName="org.postgresql.Driver"
@@ -12,3 +12,6 @@
         />
 	<ResourceLink name="DocumentDS" global="DocumentDS" type="javax.sql.DataSource" />
 </Context>
+
+
+
