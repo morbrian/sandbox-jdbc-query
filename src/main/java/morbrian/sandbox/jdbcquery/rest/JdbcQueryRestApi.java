@@ -22,7 +22,7 @@ import java.util.concurrent.Executors;
   private static Set<String> SUPPORTED_SCHEMAS =
       Collections.unmodifiableSet(new HashSet(Arrays.asList("public")));
   private static Set<String> SUPPORTED_CATEGORIES =
-      Collections.unmodifiableSet(new HashSet(Arrays.asList("tablenames")));
+      Collections.unmodifiableSet(new HashSet(Arrays.asList("sample")));
   @Inject QueryController controller;
   @Inject private Logger log;
 
