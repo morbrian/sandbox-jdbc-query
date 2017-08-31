@@ -17,7 +17,9 @@ import java.util.List;
  */
 @Stateless public class Database {
 
-  @Resource(mappedName = "java:/comp/env/jdbc/DocumentDS") DataSource dataSource;
+  @Resource(mappedName = "java:comp/env/DocumentDS") DataSource dataSource;
+
+  @Resource(mappedName = "java:comp/env/ObjectDS") DataSource objectSource;
 
   Connection connection;
 
@@ -32,19 +34,35 @@ import java.util.List;
   }
 
   public NamesAndRecords fetchData(String query) {
+    if (objectSource != null) {
+      try {
+        fetchData(query, objectSource.getConnection());
+      } catch(SQLException exc) {
+        logger.error("failed to get object connection", exc);
+      }
+    } else {
+      logger.error("Object connection is null");
+    }
+    try {
+      return fetchData(query, getConnection());
+    } catch(SQLException exc) {
+      logger.error("failed to get data connection", exc);
+      return null;
+    }
+  }
+
+  private NamesAndRecords fetchData(String query, Connection conn) {
     // TODO: make this method take a closure so we can specify an operation to perform
     // TODO: explore fetch size performance
     // for a certain batch size of records.
     List<String> fieldNames = new ArrayList<>();
     List<List<Object>> records = new ArrayList<>();
 
-    Connection conn = null;
     PreparedStatement stmt = null;
     ResultSet resultSet = null;
     ResultSetMetaData metaData = null;
 
     try {
-      conn = getConnection();
       stmt = conn.prepareStatement(query);
       resultSet = stmt.executeQuery();
 

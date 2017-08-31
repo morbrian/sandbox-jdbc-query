@@ -4,7 +4,7 @@ FROM registry.access.redhat.com/jboss-webserver-3/webserver31-tomcat8-openshift
 #available in openshift pipeline, above FROM is replaced when using dockerStrategy in BuildConfig
 #FROM webserver31-tomcat8
 
-# must use root becausewe are changing permissions and installing files
+# must use root because we are changing permissions and installing files
 USER root
 
 # update to oracle java
@@ -15,13 +15,18 @@ RUN curl -LO http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4
 
 # configure tomcat
 WORKDIR /opt/webserver
-RUN rm -Rf webapps/*
-RUN echo 'export JAVA_HOME=/usr/java/latest' >> bin/setenv.sh; \
-    chown root:jboss bin/setenv.sh; \
-    chmod 755 bin/setenv.sh
+COPY setenv.sh bin/
+RUN rm -Rf webapps/*; \
+    mkdir -p conf/Catalina/localhost; \
+    chmod 770 conf/Catalina/localhost; \
+    chmod 770 bin/setenv.sh
+
+WORKDIR /usr/local/src
+COPY ROOT.xml ROOT.xml
 
 # above provides the configured platform
 # the war is copied later -- TBD
 # COPY jdbc-query.war /opt/webserver/webapps/ROOT.war
 
+USER jboss
 CMD /opt/webserver/bin/launch.sh
