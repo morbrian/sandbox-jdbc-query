@@ -27,3 +27,6 @@ must be copied to the tomcat webapps deployment directory.
         http://localhost:8080/jdbc-query/api/rest/database/fetch/public/sample
 
 
+## References
+
+Shiro web sample: https://github.com/apache/shiro/tree/master/samples/web
