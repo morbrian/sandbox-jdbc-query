@@ -1,14 +1,14 @@
 package morbrian.sandbox.jdbcquery.rest;
 
 import morbrian.sandbox.jdbcquery.QueryController;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.jws.WebParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.Arrays;
 import java.util.Collections;
@@ -22,7 +22,7 @@ import java.util.concurrent.Executors;
   private static Set<String> SUPPORTED_SCHEMAS =
       Collections.unmodifiableSet(new HashSet(Arrays.asList("public")));
   private static Set<String> SUPPORTED_CATEGORIES =
-      Collections.unmodifiableSet(new HashSet(Arrays.asList("sample")));
+      Collections.unmodifiableSet(new HashSet(Arrays.asList("sample","groups", "users")));
   @Inject QueryController controller;
   @Inject private Logger log;
 
@@ -44,8 +44,23 @@ import java.util.concurrent.Executors;
       }
     }).start();
 
-    return "Fetching Data For: " + schema + "." + category;
+    return "Dumped Data to Logs for For: " + schema + "." + category;
   }
 
+  @GET @Path("/smoketest") @Produces(MediaType.APPLICATION_JSON)
+  public String fetchSmokeTest(@QueryParam("input") final String input) {
+    Subject subject = SecurityUtils.getSubject();
+    return "user: " + subject.getPrincipal() + " received: " + input;
+  }
+
+  @GET @Path("/town/visit") @Produces(MediaType.APPLICATION_JSON)
+  public String doTownVisit(@QueryParam("town") final String town) {
+    Subject subject = SecurityUtils.getSubject();
+    if (subject.isPermitted("town:visit:" + town)) {
+      return "user: " + subject.getPrincipal() + " can visit town: " + town;
+    } else {
+      return "denied";
+    }
+  }
 }
 
