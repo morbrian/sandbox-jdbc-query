@@ -7,12 +7,6 @@ FROM registry.access.redhat.com/jboss-webserver-3/webserver31-tomcat8-openshift
 # must use root because we are changing permissions and installing files
 USER root
 
-# update to oracle java
-WORKDIR /tmp
-RUN curl -LO http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.rpm -H --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie"; \
-    rpm --quiet -U jdk-8u131-linux-x64.rpm; \
-    rm -f jdk-8u131-linux-x64.rpm;
-
 # configure tomcat
 WORKDIR /opt/webserver
 COPY setenv.sh bin/

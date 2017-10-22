@@ -48,10 +48,19 @@ import java.util.concurrent.Executors;
   }
 
   @GET @Path("/smoketest") @Produces(MediaType.APPLICATION_JSON)
-  public String fetchDataCategory(@QueryParam("input") final String input) {
+  public String fetchSmokeTest(@QueryParam("input") final String input) {
     Subject subject = SecurityUtils.getSubject();
-    return "user: " + (subject != null ? subject.getPrincipal() : "[null user]") + " received: " + input;
+    return "user: " + subject.getPrincipal() + " received: " + input;
   }
 
+  @GET @Path("/town/visit") @Produces(MediaType.APPLICATION_JSON)
+  public String doTownVisit(@QueryParam("town") final String town) {
+    Subject subject = SecurityUtils.getSubject();
+    if (subject.isPermitted("town:visit:" + town)) {
+      return "user: " + subject.getPrincipal() + " can visit town: " + town;
+    } else {
+      return "denied";
+    }
+  }
 }
 

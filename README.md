@@ -25,6 +25,7 @@ must be copied to the tomcat webapps deployment directory.
 1. A very simple GET REST request will initiate a fetch.
 
         http://localhost:8080/jdbc-query/api/rest/database/fetch/public/sample
+        http://localhost:8080/api/rest/database/town/visit?town=dragonstone
 
 
 ## References
